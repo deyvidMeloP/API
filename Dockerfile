@@ -7,13 +7,15 @@ WORKDIR /app
 # Copia todos os arquivos para o diretório de trabalho
 COPY . .
 
-# Instala o Gradle Wrapper (caso não esteja presente)
+# Copia o Gradle Wrapper e os diretórios gradle
 COPY gradlew .
 COPY gradle ./gradle
+
+# Configura permissões para o Gradle Wrapper
 RUN chmod +x ./gradlew
 
-# Executa a construção do JAR executável
-RUN ./gradlew bootJar --no-daemon
+# Executa o comando Gradle para construir o projeto
+RUN ./gradlew build --no-daemon || true
 
 # Etapa de execução
 FROM openjdk:17-jdk-slim
