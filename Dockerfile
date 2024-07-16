@@ -15,7 +15,7 @@ COPY gradle ./gradle
 RUN chmod +x ./gradlew
 
 # Executa o comando Gradle para construir o projeto
-RUN ./gradlew build --no-daemon || true
+RUN ./gradlew build --no-daemon
 
 # Etapa de execução
 FROM openjdk:17-jdk-slim
