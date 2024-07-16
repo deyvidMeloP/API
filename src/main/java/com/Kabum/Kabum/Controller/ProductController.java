@@ -27,7 +27,7 @@ import java.util.List;
 
 /*netstat -ano | findstr :8080*/
 @RestController
-@CrossOrigin(origins = "https://deyvidmelop.github.io") 
+@CrossOrigin(origins = "http://localhost:8080") 
 public class ProductController {
 
 	@Autowired
