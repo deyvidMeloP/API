@@ -1,32 +1,13 @@
-# Etapa de construção
-FROM openjdk:17-jdk AS build
-
-# Define o diretório de trabalho
-WORKDIR /app
-
-# Copia todos os arquivos para o diretório de trabalho
-COPY . .
-
-# Copia o Gradle Wrapper e os diretórios gradle
-COPY gradlew .
-COPY gradle ./gradle
-
-# Configura permissões para o Gradle Wrapper
-RUN chmod +x ./gradlew
-
-# Executa o comando Gradle para construir o projeto
-RUN ./gradlew build
-
-# Etapa de execução
+# Use uma imagem base do OpenJDK
 FROM openjdk:17-jdk-slim
 
-# Define o diretório de trabalho
+# Defina o diretório de trabalho no contêiner
 WORKDIR /app
 
-# Copia o JAR executável da etapa de construção
-COPY --from=build /app/build/libs/Kabum-0.0.1-SNAPSHOT.jar app.jar
+# Copie o arquivo JAR gerado para o contêiner
+COPY build/libs/Kabum-0.0.1-SNAPSHOT.jar app.jar
 
-# Expõe a porta em que a aplicação Spring Boot estará escutando
+# Exponha a porta em que a aplicação Spring Boot estará escutando
 EXPOSE 8080
 
 # Comando para executar a aplicação
